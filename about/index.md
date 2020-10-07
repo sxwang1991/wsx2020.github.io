@@ -3,7 +3,7 @@ layout: page
 type: about
 ---
 
-&emsp;&emsp;关于我, 一个写代码很挫的程序员, 希望能在这里记录下一些有用的和有趣的东西.  
+&emsp;&emsp;关于我, 一个3年教龄的高中数学教师, 在这里记录一些思考.  
 <br
 />
-&emsp;&emsp;Contact me: fengwei@mevii.com
+&emsp;&emsp;Contact me: sxwang1991@163.com
