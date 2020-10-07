@@ -4,10 +4,10 @@
 # ---------------------------------------------------------------
 
 # Site
-title: Wayne Fung's blog
+title: Christian Wong's blog
 subtitle:
 description: Stay motivated & Be contented
-author: Wayne Fung
+author: Christian Wong
 # Support language: de, en, fr-FR, id, ja, ko, pt-BR, pt, ru, zh-Hans, zh-hk, zh-tw
 language: zh-Hans
 date_format: '%Y-%m-%d'
@@ -215,8 +215,7 @@ font:
 # Value is the target link (E.g. GitHub: https://github.com/iissnan)
 social:
   #LinkLabel: Link
-  GitHub: https://github.com/fengweiUSTC
-  Zhihu: https://www.zhihu.com/people/engine-aero/activities
+  GitHub: https://github.com/wsx2020
 
 
 # Social Links Icons
