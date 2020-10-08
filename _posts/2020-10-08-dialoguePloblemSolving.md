@@ -6,7 +6,8 @@ tags:
 - 解题教学
 ---
 
-&emsp;&emsp;解题教学是高三数学教学的主要形式之一,师生都为此花费了不少精力,但现实中的教学效果却不尽如人意,不少学生的反映是上课听得懂但自己课后不会做,以致高考命题人员对高考的预期成绩与考生的实际表现经常存在较大的落差,问题的症结在哪里呢?在调查中发现:学生在解题中不能有效整合题目的信息,对题意的理解支离破碎,走不进题目描绘的"世界"中去,进入不了解题的"角色",也就不能快速寻找到解题的 batch size太大，做归一化绰绰有余，且训练时间能大幅缩短，但是GPU显存吃不消，只能在多卡上做数据并行训练，多卡数据间如何求BN也是个问题，同时由于一个epoch内steps少了，模型迭代次数不够，也会掉点；batch size太小，数据间方差波动太大，不具有统计性，此时做BN并不能对数据做有效归一化，也会影响最终精度。本文就这些问题做一些文献调研和记录，涉及Linear Scaling Rule、Gradual warmup、Cross-GPU BN、Cross-Iteration BN、Filter Response Normalization Layer等。
+&emsp;&emsp;解题教学是高三数学教学的主要形式之一,师生都为此花费了不少精力,但现实中的教学效果却不尽如人意,不少学生的反映是上课听得懂但自己课后不会做,以致高考命题人员对高考的预期成绩与考生的实际表现经常存在较大的落差,问题的症结在哪里呢?在调查中发现:学生在解题中不能有效整合题目的信息,对题意的理解支离破碎,走不进题目描绘的"世界"中去,进入不了解题的"角色",也就不能快速寻找到解题的 
+
 <!-- more -->
 
 ***
@@ -43,7 +44,7 @@ tags:
 ![](/assets/images/bn/9.png)
 &emsp;&emsp;在batch size为kn的情况下，使用原本的$lr=\eta$作为起步，然后在5个epoch内线性递增到$lr=k\eta$。这样就能进行平稳的过渡，避免了之前的硬转折。在后续的训练中，也可以使用任意的lr下降策略。从上图(c)可以看出，使用了Gradual warmup策略后，训练曲线除去初期过渡阶段在后期几乎完全与baseline重合，说明大batch size的影响几乎被消除。
 
->> 案例 2 
+>> ##  案例 2 
 
 &emsp;&emsp;文中的BN并没有在多GPU间进行同步，而是在各自GPU的local batch size上进行计算，应用在各自的local batch数据上，随后计算出local loss。但是最终对local loss进行了同步，求和后得出了总loss。
 ![](/assets/images/bn/5.png)
@@ -63,7 +64,7 @@ tags:
 ![](/assets/images/bn/9.png)
 &emsp;&emsp;在batch size为kn的情况下，使用原本的$lr=\eta$作为起步，然后在5个epoch内线性递增到$lr=k\eta$。这样就能进行平稳的过渡，避免了之前的硬转折。在后续的训练中，也可以使用任意的lr下降策略。从上图(c)可以看出，使用了Gradual warmup策略后，训练曲线除去初期过渡阶段在后期几乎完全与baseline重合，说明大batch size的影响几乎被消除。
 
->> 案例 3 
+>> ##  案例 3 
 
 &emsp;&emsp;文中的BN并没有在多GPU间进行同步，而是在各自GPU的local batch size上进行计算，应用在各自的local batch数据上，随后计算出local loss。但是最终对local loss进行了同步，求和后得出了总loss。
 ![](/assets/images/bn/5.png)
