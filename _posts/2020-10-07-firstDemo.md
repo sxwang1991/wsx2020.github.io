@@ -7,9 +7,10 @@ tags:
 - warm-up
 - multi-GPU
 - activation-func
+- english
 ---
 
-&emsp;&emsp;BN作为神经网络的万金油，能够显著加速模型训练，并提升模型训练的稳定性和最终精度。它在一个batch的数据上做归一化，把数据重整化为零均值标准方差的分布。问题在于，如何取batch size的大小？batch size太大，做归一化绰绰有余，且训练时间能大幅缩短，但是GPU显存吃不消，只能在多卡上做数据并行训练，多卡数据间如何求BN也是个问题，同时由于一个epoch内steps少了，模型迭代次数不够，也会掉点；batch size太小，数据间方差波动太大，不具有统计性，此时做BN并不能对数据做有效归一化，也会影响最终精度。本文就这些问题做一些文献调研和记录，涉及Linear Scaling Rule、Gradual warmup、Cross-GPU BN、Cross-Iteration BN、Filter Response Normalization Layer等。
+&emsp;&emsp; Getting an education is always costly. But as a famous saying goes: " The only thing more expensive than education is ignorance." So, while securing the money to attend college can be very difficult, it is essential for success.   BN作为神经网络的万金油，能够显著加速模型训练，并提升模型训练的稳定性和最终精度。它在一个batch的数据上做归一化，把数据重整化为零均值标准方差的分布。问题在于，如何取batch size的大小？batch size太大，做归一化绰绰有余，且训练时间能大幅缩短，但是GPU显存吃不消，只能在多卡上做数据并行训练，多卡数据间如何求BN也是个问题，同时由于一个epoch内steps少了，模型迭代次数不够，也会掉点；batch size太小，数据间方差波动太大，不具有统计性，此时做BN并不能对数据做有效归一化，也会影响最终精度。本文就这些问题做一些文献调研和记录，涉及Linear Scaling Rule、Gradual warmup、Cross-GPU BN、Cross-Iteration BN、Filter Response Normalization Layer等。
 <!-- more -->
 
 ***
